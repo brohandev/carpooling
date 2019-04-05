@@ -7,30 +7,19 @@ var logger = require('morgan');
 /* --- V7: Using dotenv     --- */
 require('dotenv').load();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-/* --- V2: Adding Web Pages --- */
-var aboutRouter = require('./routes/about');
+/* --- FOR CARPOOLING     --- */
+var homeRouter = require('./routes/home');
+var loginRouter = require('./routes/login');
+var signup_passengerRouter = require('./routes/signup_passenger');
+var signup_driverRouter = require('./routes/signup_driver');
+var navbarRouter = require('./routes/navbar');
 /* ---------------------------- */
 
-/* --- V3: Basic Template   --- */
+/* --- FROM TEMPLATE --- */
 var tableRouter = require('./routes/table');
 var loopsRouter = require('./routes/loops');
-/* ---------------------------- */
-
-/* --- V4: Database Connect --- */
 var selectRouter = require('./routes/select');
 /* ---------------------------- */
-
-/* --- V5: Adding Forms     --- */
-var formsRouter = require('./routes/login');
-/* ---------------------------- */
-
-/* --- V6: Modify Database  --- */
-var insertRouter = require('./routes/insert');
-/* ---------------------------- */
-var signupRouter = require('./routes/signup');
 
 var app = express();
 
@@ -44,32 +33,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-/* --- V2: Adding Web Pages --- */
-app.use('/about', aboutRouter);
+/* --- FOR CARPOOLING    --- */
+app.use('/home', homeRouter);
+app.use('/login', loginRouter);
+app.use('/navbar', navbarRouter);
 /* ---------------------------- */
 
-/* --- V3: Basic Template   --- */
+/* --- FROM TEMPLATE --- */
 app.use('/table', tableRouter);
 app.use('/loops', loopsRouter);
-/* ---------------------------- */
-
-/* --- V4: Database Connect --- */
 app.use('/select', selectRouter);
 /* ---------------------------- */
 
-/* --- V5: Adding Forms     --- */
-app.use('/forms', formsRouter);
-/* ---------------------------- */
-
-/* --- V6: Modify Database  --- */
+/* --- Modify Database  --- */
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/insert', insertRouter);
-app.use('/signup', signupRouter);
+
+/* --- FOR CARPOOLING    --- */
+app.use('/signup_passenger', signup_passengerRouter);
+app.use('/signup_driver', signup_driverRouter)
+/* ---------------------------- */
+
+/* --- FROM TEMPLATE    --- */
+/* ---------------------------- */
+
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
